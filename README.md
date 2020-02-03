@@ -6,12 +6,12 @@ Toutatis permet d'extraire des informations d'un compte instagrams
 ## 🛠️ Installation
 ```bash
 git clone https://github.com/megadose/toutatis.git
-cd Fl0wj0b/
+cd toutatis/
 pip install -r requirements.txt
 ```
 ## 📈 Usage
 ```bash
-python toutatis -u username -s sessionsid
+python toutatis.py -u username -s sessionsid
 ```
 ## 📚 Pour recuperer le sessionsID
 ![alt text](https://github.com/megadose/toutatis/blob/master/sessionsId.png?raw=true)
