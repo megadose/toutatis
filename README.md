@@ -13,6 +13,7 @@ pip install -r requirements.txt
 ```
 ## 📈 Usage
 ```bash
+python toutatis.py [-h] -u USERNAMES -s SESSIONID [-o OUTPUT]
 python toutatis.py -u usernames.txt -s sessionsid
 ```
 ## 📚 Pour recuperer le sessionsID
