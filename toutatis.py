@@ -15,14 +15,10 @@ sessionsId=args.sessionid
 ListOfInfo = []
 
 def getUserId(username):
-    try:
-        r = get('https://www.instagram.com/{}/?__a=1'.format(username))
-        info = json.loads(r.text)
-        id = info["logging_page_id"].strip("profilePage_")
-        return(id)
-    except ValueError:
-        print(ValueError)
-        exit()
+    r = get('https://www.instagram.com/{}/?__a=1'.format(username))
+    info = json.loads(r.text)
+    id = info["logging_page_id"].strip("profilePage_")
+    return(id)
 
 def getInfo(userId,sessionId):
     cookies = {'sessionid': sessionId}
@@ -37,7 +33,7 @@ with open(args.usernames) as file:
 print(str(len(usernames))+" users")
 print("Export filename : "+args.output)
 for username in tqdm(usernames):
-    userid = getUserId(username)
+    userid = getUserId(str(username))
     ListOfInfo.append(getInfo(userid,sessionsId))
 
 
