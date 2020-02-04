@@ -36,8 +36,11 @@ for username in tqdm(usernames):
     userid = getUserId(str(username))
     ListOfInfo.append(getInfo(userid,sessionsId))
 
-
-keys = ListOfInfo[0].keys()
+keys = []
+for listinfo in ListOfInfo:
+	for i in listinfo.keys():
+		keys.append(i) if i not in keys else keys
+print(keys)
 with open(args.output, 'wb') as output_file:
     dict_writer = csv.DictWriter(output_file, keys)
     dict_writer.writeheader()
