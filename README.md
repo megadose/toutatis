@@ -1,5 +1,5 @@
 # Toutatis
-Toutatis permet d'extraire des informations d'un compte instagrams(emails,phone numbers ect...)
+Toutatis permet d'extraire des informations de comptes instagrams(emails,phone numbers ect...)
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
