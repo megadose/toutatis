@@ -7,7 +7,7 @@ from tqdm import tqdm
 parser = argparse.ArgumentParser()
 required = parser.add_argument_group('required arguments')
 parser.add_argument('-s', '--sessionid',help="Instagram session ID",required=True)
-parser.add_argument('-i','--informations',help="The informations you want. mail : just extract the mail, phone : just extract the phone number ,ep extract email and phone , all : extract all informations")
+parser.add_argument('-i','--informations',help="The informations you want. mail : just extract the mail, phone : just extract the phone number ,mp extract email and phone , all : extract all informations")
 parser.add_argument('-f', '--file',help="List of usernames (filename)")
 parser.add_argument('-u','--username',help="One username")
 parser.add_argument('-o', '--output',help="Name of output csv file")
@@ -59,12 +59,19 @@ if(args.username !=  None):
     if(args.informations == "mail"):
         email = extractEmail(info)
         print("Mail of {} : {}".format(args.username,email))
-        dict = {'username':username,'mail':email}
+        dict = {'username':args.username,'mail':email}
         ListOfInfo.append(dict)
     elif(args.informations == "phone"):
         phone = extractPhone(info)
-        print("Phone of {} : {}".format(args.username))
-        dict = {'username':username,'phone':phone}
+        print("Phone of {} : {}".format(args.username,phone))
+        dict = {'username':args.username,'phone':phone}
+        ListOfInfo.append(dict)
+    elif(args.informations == "ep"):
+        phone = extractPhone(info)
+        email = extractEmail(info)
+        print("Phone of {} : {}".format(args.username,phone))
+        print("Mail of {} : {}".format(args.username,email))
+        dict = {'username':args.username,'mail':email,'phone':phone}
         ListOfInfo.append(dict)
 
     elif(args.informations == "all"):
@@ -100,6 +107,14 @@ elif(args.file != None):
                 info = getInfo(userid,sessionsId)
                 phone = extractPhone(info)
                 dict = {'username':username,'phone':phone}
+                ListOfInfo.append(dict)
+        elif(args.informations == "ep"):
+            for username in tqdm(usernames):
+                userid = getUserId(str(username))
+                info = getInfo(userid,sessionsId)
+                phone = extractPhone(info)
+                email = extractEmail(info)
+                dict = {'username':username,'email':email,'phone':phone}
                 ListOfInfo.append(dict)
         elif(args.informations == "all"):
             for username in tqdm(usernames):
