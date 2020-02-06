@@ -12,6 +12,12 @@ cd toutatis/
 pip install -r requirements.txt
 ```
 ## 📈 Usage
+
+# i :
+- mail pour extraires les mails
+- phone pour extraires les numéros de telephones
+- mp pour les 2
+- all pour tous
 ```bash
 python toutatis.py [-h] -u USERNAMES -s SESSIONID [-o OUTPUT]
 python toutatis.py -u usernames.txt -s sessionsid
