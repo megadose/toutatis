@@ -12,7 +12,7 @@ cd toutatis/
 pip install -r requirements.txt
 ```
 ## Exemple
-[]!(https://gph.is/g/4zqyjk9)
+![](toutatis.gif)
 ## 📈 Usage
 ### arguments avec -i ou  --informations :
 - mail pour extraires les mails
