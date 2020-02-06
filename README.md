@@ -11,7 +11,7 @@ git clone https://github.com/megadose/toutatis.git
 cd toutatis/
 pip install -r requirements.txt
 ```
-##Exemple
+## Exemple
 []!(https://gph.is/g/4zqyjk9)
 ## 📈 Usage
 ### arguments avec -i ou  --informations :
