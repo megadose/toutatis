@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ```
 ## 📈 Usage
 
-# arguments avec -i ou  --informations :
+### arguments avec -i ou  --informations :
 - mail pour extraires les mails
 - phone pour extraires les numéros de telephones
 - mp pour les 2
