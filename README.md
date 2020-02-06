@@ -11,8 +11,9 @@ git clone https://github.com/megadose/toutatis.git
 cd toutatis/
 pip install -r requirements.txt
 ```
+##Exemple
+[]!(https://gph.is/g/4zqyjk9)
 ## 📈 Usage
-
 ### arguments avec -i ou  --informations :
 - mail pour extraires les mails
 - phone pour extraires les numéros de telephones
@@ -24,7 +25,6 @@ python toutatis.py -u usernames.txt -s sessionsid
 ```
 ## 📚 Pour recuperer le sessionsID
 ![alt text](https://github.com/megadose/toutatis/blob/master/sessionsId.png?raw=true)
-
 
 ## 📝 License
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.fr.html)
