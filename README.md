@@ -1,4 +1,5 @@
 # Toutatis
+### Educational purposes only
 Toutatis est un outils qui permet d'extraire des informations de comptes instagrams mails, numéro de téléphone ect...
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
