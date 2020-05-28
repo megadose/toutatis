@@ -4,7 +4,7 @@ Toutatis is a tool that allows you to extract information from instagrams accoun
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
-## 💡 Prérequis
+## 💡 Prerequisite
    [Python](https://www.python.org/downloads/release/python-370/)
 ## 🛠️ Installation
 ```bash
@@ -12,7 +12,7 @@ git clone https://github.com/megadose/toutatis.git
 cd toutatis/
 python3 setup.py install
 ```
-## Exemple
+## Example
 ![](toutatis.gif)
 ## 📈 Usage
 ```bash
