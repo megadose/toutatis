@@ -31,6 +31,7 @@ print(getProfilePicture("username",sessionId))#To get the Profile Picture
 print(getBiographie("username",sessionId))#To get the Biography
 print(extractEmail("username",sessionId))#To get the public email
 print(extractPhone("username",sessionId))#To get the public phone number
-print(getAllInfos(username,sessionId))#To get parsed informations```
+print(getAllInfos(username,sessionId))#To get parsed informations
+```
 ## 📝 License
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.fr.html)
