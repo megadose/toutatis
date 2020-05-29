@@ -6,7 +6,9 @@ def recoveryEmail(username):
     return(instagram(username))
 
 def getUserId(username,sessionsId):
-    r = get('https://www.instagram.com/{}/?__a=1'.format(username))
+    cookies = {'sessionid': sessionId}
+    headers = {'User-Agent': 'Instagram 64.0.0.14.96',}
+    r = get('https://www.instagram.com/{}/?__a=1'.format(username),headers=headers, cookies=cookies)
     info = json.loads(r.text)
     id = info["logging_page_id"].strip("profilePage_")
     return(id)
