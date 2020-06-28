@@ -14,6 +14,8 @@ python3 setup.py install
 ```
 ## Example
 ![](toutatis.gif)
+
+### ⚠️ Warning with the forgotten password function the user is warned.
 ## 📈 Usage
 ```bash
 python toutatis.py [-h] -u USERNAME -s SESSIONID 
