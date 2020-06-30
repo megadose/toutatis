@@ -65,4 +65,4 @@ def getAllInfos(username,sessionId):
         publicPhone=str(infos["public_phone_country_code"]+infos["public_phone_number"])
     except:
         publicPhone=""
-    return({"username":username,"userID":userId,"FullName":infos["full_name"],"biography":str(infos["biography"]),"publicEmail":publicEmail,"public_phone_number":publicPhone,"recoveryEmail":recoveryemail,"ProfilePicture":infos["profile_pic_url"]})
+    return({"username":username,"userID":userId,"FullName":infos["full_name"],"biography":str(infos["biography"]),"publicEmail":publicEmail,"public_phone_number":publicPhone,"ProfilePicture":infos["profile_pic_url"]})
