@@ -30,11 +30,6 @@ if len(infos["publicEmail"])==0:
 
 print("Public Email : "+infos["publicEmail"])
 
-if infos["recoveryEmail"]=="NULL":
-    infos["recoveryEmail"]=="Not found"
-
-print("Recovery Email : "+infos["recoveryEmail"])
-
 if len(infos["public_phone_number"])<1:
     infos["public_phone_number"]="Not found"
 
