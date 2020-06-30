@@ -52,7 +52,6 @@ def extractPhone(username,sessionId):
 
 def getAllInfos(username,sessionId):
     userId=getUserId(username,sessionId)
-    recoveryemail=recoveryEmail(username)
     cookies = {'sessionid': sessionId}
     headers = {'User-Agent': 'Instagram 64.0.0.14.96',}
     response = get('https://i.instagram.com/api/v1/users/'+userId+'/info/', headers=headers, cookies=cookies)
