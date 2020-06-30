@@ -25,7 +25,7 @@ python toutatis.py [-h] -u USERNAME -s SESSIONID
 ## 📈 Usage with python
 ```python3 
 from toutatis import *
-print(recoveryEmail("username")) #To retrieve the email from the forgotten password function
+print(recoveryEmail("username")) #To retrieve the email from the forgotten password function ⚠️ the user is alerted !
 print(getUserId("username",sessionsId))#To get the UserID
 print(getInfo("username",sessionId))#To get the informations not parsed
 print(getFullName("username",sessionId))#To get the Full Name
