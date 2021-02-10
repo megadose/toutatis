@@ -7,27 +7,27 @@ Toutatis is a tool that allows you to extract information from instagrams accoun
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
 ## 💡 Prerequisite
-   [Python](https://www.python.org/downloads/release/python-370/)
+ [Python](https://www.python.org/downloads/release/python-370/)
+
 ## 🛠️ Installation
+### With PyPI
+ ```pip3 install holehe
+ ```
+### With Github
 ```bash
 git clone https://github.com/megadose/toutatis.git
 cd toutatis/
 python3 setup.py install
 ```
-## Example
-![](toutatis.gif)
-
 ### ⚠️ Warning with the forgotten password function the user is warned.
 ## 📈 Usage
-```bash
-python toutatis.py [-h] -u USERNAME -s SESSIONID 
+toutatis [-h] -u USERNAME -s SESSIONID
 ```
 ## 📚 To retrieve the sessionID
 ![alt text](https://github.com/megadose/toutatis/blob/master/sessionsId.png?raw=true)
 ## 📈 Usage with python
-```python3 
+```python3
 from toutatis import *
-print(recoveryEmail("username")) #To retrieve the email from the forgotten password function ⚠️ the user is alerted !
 print(getUserId("username",sessionsId))#To get the UserID
 print(getInfo("username",sessionId))#To get the informations not parsed
 print(getFullName("username",sessionId))#To get the Full Name
