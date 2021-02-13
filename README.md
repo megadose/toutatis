@@ -22,7 +22,7 @@ python3 setup.py install
 ```
 ## 📈 Usage
 toutatis [-h] -u USERNAME -s SESSIONID
-```
+
 ## 📚 To retrieve the sessionID
 ![alt text](https://github.com/megadose/toutatis/blob/master/sessionsId.png?raw=true)
 ## 📈 Usage with python
