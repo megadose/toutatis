@@ -19,7 +19,6 @@ git clone https://github.com/megadose/toutatis.git
 cd toutatis/
 python3 setup.py install
 ```
-### ⚠️ Warning with the forgotten password function the user is warned.
 ## 📈 Usage
 toutatis [-h] -u USERNAME -s SESSIONID
 ```
