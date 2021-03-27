@@ -9,7 +9,8 @@ Toutatis is a tool that allows you to extract information from instagrams accoun
 
 ## 🛠️ Installation
 ### With PyPI
- ```pip3 install holehe
+ ```
+ pip3 install holehe
  ```
 ### With Github
 ```bash
@@ -19,7 +20,7 @@ python3 setup.py install
 ```
 ## 📈 Usage
 toutatis [-h] -u USERNAME -s SESSIONID
-```
+
 ## 📚 To retrieve the sessionID
 ![](https://files.catbox.moe/1rfi6j.png)
 ## 📝 License
