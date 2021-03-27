@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='toutatis',
-    version="1.22",
+    version="1.23",
     packages=find_packages(),
     author="megadose",
     install_requires=["argparse","tabulate","httpx","tqdm","unicodecsv"],

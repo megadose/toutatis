@@ -1,117 +1,64 @@
 import argparse,json
-import httpx,sys
+import httpx,sys,hmac,hashlib,urllib
 from httpx import get
 
 def getUserId(username,sessionsId):
     cookies = {'sessionid': sessionsId}
     headers = {'User-Agent': 'Instagram 64.0.0.14.96',}
     r = get('https://www.instagram.com/{}/?__a=1'.format(username),headers=headers, cookies=cookies)
-    info = json.loads(r.text)
-    id = info["logging_page_id"].strip("profilePage_")
-    return(id)
+    try:
+        info = json.loads(r.text)
+        id = info["logging_page_id"].strip("profilePage_")
+        return({"id":id,"error":None})
+    except :
+        return({"id":None,"error":"User not found or rate limit"})
 
 def getInfo(username,sessionId):
-    userId = getUserId(username,sessionId)
-    cookies = {'sessionid': sessionId}
-    headers = {'User-Agent': 'Instagram 64.0.0.14.96',}
-    response = get('https://i.instagram.com/api/v1/users/'+userId+'/info/', headers=headers, cookies=cookies)
-    info = json.loads(response.text)
-    infoUser = info["user"]
-    return(infoUser)
-
-def getFullName(username,sessionId):
-    infos = getInfo(username,sessionId)
-    return(infos["full_name"])
-
-def getProfilePicture(username,sessionId):
-    infos = getInfo(username,sessionId)
-    return(infos["profile_pic_url"])
-
-def getBiographie(username,sessionId):
-    infos = getInfo(username,sessionId)
-    return(infos["biography"])
-
-def extractEmail(username,sessionId):
-    userId = getUserId(username,sessionId)
-    dict = getInfo(userId,sessionId)
-    try:
-        return(dict["public_email"])
-    except:
-        return("NULL")
-
-def extractPhone(username,sessionId):
-    userId = getUserId(username,sessionId)
-    dict = getInfo(userId,sessionId)
-    try:
-        return(dict["public_phone_country_code"]+dict["public_phone_number"])
-    except:
-        return("NULL")
-
-def getAllInfos(username,sessionId):
     userId=getUserId(username,sessionId)
-    cookies = {'sessionid': sessionId}
-    headers = {'User-Agent': 'Instagram 64.0.0.14.96',}
-    response = get('https://i.instagram.com/api/v1/users/'+userId+'/info/', headers=headers, cookies=cookies)
-    info = json.loads(response.text)
-    infos = info["user"]
+    if userId["error"]!=None:
+        return({"user":None,"error":"User not found or rate limit"})
+    else:
+        cookies = {'sessionid': sessionId}
+        headers = {'User-Agent': 'Instagram 64.0.0.14.96',}
+        response = get('https://i.instagram.com/api/v1/users/'+userId["id"]+'/info/', headers=headers, cookies=cookies)
+        info = json.loads(response.text)
+        infoUser = info["user"]
+        infoUser["userID"]=userId["id"]
+        return({"user":infoUser,"error":None})
+
+
+def advanced_lookup(username):
+    USERS_LOOKUP_URL = 'https://i.instagram.com/api/v1/users/lookup/'
+    SIG_KEY_VERSION = '4'
+    IG_SIG_KEY = 'e6358aeede676184b9fe702b30f4fd35e71744605e39d2181a34cede076b3c33'
+
+    def generate_signature(data):
+        return 'ig_sig_key_version=' + SIG_KEY_VERSION + '&signed_body=' + hmac.new(IG_SIG_KEY.encode('utf-8'),data.encode('utf-8'),hashlib.sha256).hexdigest() + '.'+ urllib.parse.quote_plus(data)
+
+    def generate_data( phone_number_raw):
+        data = {'login_attempt_count': '0',
+                'directly_sign_in': 'true',
+                'source': 'default',
+                'q': phone_number_raw,
+                'ig_sig_key_version': SIG_KEY_VERSION
+                }
+        return data
+
+    data=generate_signature(json.dumps(generate_data(username)))
+    headers={
+    "Accept-Language": "en-US",
+    "User-Agent": "Instagram 101.0.0.15.120",
+    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    "Accept-Encoding": "gzip, deflate",
+    "X-FB-HTTP-Engine": "Liger",
+    "Connection": "close"}
     try:
-        publicEmail=infos["public_email"]
-    except:
-        publicEmail=""
-    try:
-        publicPhone=str(infos["public_phone_country_code"]+infos["public_phone_number"])
-    except:
-        publicPhone=""
-    return({"username":username,"userID":userId,"FullName":infos["full_name"],"biography":str(infos["biography"]),"publicEmail":publicEmail,"public_phone_number":publicPhone,"ProfilePicture":infos["profile_pic_url"]})
+        r = httpx.post(USERS_LOOKUP_URL,headers=headers,data=data)
+        rep=r.json()
+        return({"user":rep,"error":None})
+    except :
+        return({"user":None,"error":"rate limit"})
 
-def searchInProfil(query,sessionid,targetID):
-    def scrapeNumber(number):
-        cookies = {
-            'sessionid': sessionid,
-        }
-
-        headers = {
-            'User-Agent': 'Instagram 153.0.0.34.96 Android',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language': 'en,en-US;q=0.5',
-            'DNT': '1',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
-            'Sec-GPC': '1',
-            'TE': 'Trailers',
-        }
-
-        params = {
-            'search_surface': 'follow_list_page',
-            'max_id': number,
-            'order': 'default',
-            'query': query,
-            'enable_groups': 'true'
-        }
-        try:
-            response = httpx.get('https://i.instagram.com/api/v1/friendships/'+targetID+'/followers/', headers=headers, params=params, cookies=cookies)
-            return(response.json())
-        except :
-            exit()
-    def appendUsers(users,reponse):
-        for user in users:
-            reponse.append(user)
-        return(reponse)
-
-
-    terminate=0
-    number=0
-    responses=[]
-    while terminate != 1:
-        print(number)
-        req=scrapeNumber(number)
-        responses=appendUsers(req["users"],responses)
-        if req["next_max_id"] != None and req["next_max_id"] != number:
-            number=req["next_max_id"]
-        else:
-            responses=appendUsers(req["users"],responses)
-            terminate=1
-    return(responses)
 
 def main():
     parser = argparse.ArgumentParser()
@@ -121,31 +68,51 @@ def main():
     args = parser.parse_args()
     sessionsId=args.sessionid
 
-    infos = getAllInfos(args.username,sessionsId)
+    infos = getInfo(args.username,sessionsId)
+    if infos["user"]==None:
+        print(infos["error"])
+    else:
+        infos=infos["user"]
+        print("Informations about : "+infos["username"])
+        print("Full Name : "+infos["full_name"]+" | userID : "+infos["userID"])
+        print("Verified : "+str(infos['is_verified'])+" | Is buisness Acount : "+str(infos["is_business"]))
+        print("Is private Account : "+str(infos["is_private"]))
+        print("Follower : "+str(infos["follower_count"]) + " Following : "+str(infos["following_count"]))
+        print("Number of posts : "+str(infos["media_count"]))
+        print("Number of tag in posts : "+str(infos["following_tag_count"]))
+        print("External url : "+infos["external_url"])
+        print("IGTV posts : "+str(infos["total_igtv_videos"]))
+        print("Biography : "+infos["biography"])
+        print("Profile Picture : "+infos["hd_profile_pic_url_info"]["url"])
+        if "public_email" in infos.keys():
+            if infos["public_email"]!='':
+                print("Public Email : "+infos["public_email"])
+            else:
+                print("No public email found")
+        if "public_phone_number"in infos.keys():
+            if str(infos["public_phone_number"])!='':
+                print("Public Phone number : +"+str(infos["public_phone_country_code"])+" "+str(infos["public_phone_number"]))
+            else:
+                print("No public phone number found")
 
-    print("Informations about : "+infos["username"])
-    print("Full Name : "+infos["FullName"]+" userID : "+infos["userID"])
+        print("*"*20)
+        other_infos=advanced_lookup(args.username)
+        if other_infos["error"]=="rate limit":
+            print("Rate limit please wait a few minutes before you try again")
+        elif "message" in other_infos["user"].keys():
+            if other_infos["user"]["message"]=="No users found":
+                print("The lookup did not work on this account")
+            else:
+                print("Rate limit please wait a few minutes before you try again.")
+        else:
+            if "obfuscated_email" in other_infos["user"].keys():
+                if other_infos["user"]["obfuscated_email"]!='':
+                    print("Obfuscated email : "+other_infos["user"]["obfuscated_email"])
+                else:
+                    print("No obfuscated email found")
 
-    info = getInfo(args.username,sessionsId)
-    print("Verified : "+str(info['is_verified'])+" Is buisness Acount : "+str(info["is_business"]))
-    print("Is private Account : "+str(info["is_private"]))
-    print("Follower : "+str(info["follower_count"]) + " Following : "+str(info["following_count"]))
-    print("Number of posts : "+str(info["media_count"]))
-    print("Number of tag in posts : "+str(info["following_tag_count"]))
-    print("External url : "+info["external_url"])
-    print("IGTV posts : "+str(info["total_igtv_videos"]))
-    if len(infos["biography"]) <1:
-        infos["biography"]="Not found"
-
-    print("Biography : "+infos["biography"])
-
-    if len(infos["publicEmail"])==0:
-        infos["publicEmail"]="Not found"
-
-    print("Public Email : "+infos["publicEmail"])
-
-    if len(infos["public_phone_number"])<1:
-        infos["public_phone_number"]="Not found"
-
-    print("Public Phone number : "+infos["public_phone_number"])
-    print("Profile Picture : "+infos["ProfilePicture"])
+            if "obfuscated_phone"in other_infos["user"].keys():
+                if str(other_infos["user"]["obfuscated_phone"])!='':
+                    print("Obfuscated phone : +"+str(other_infos["user"]["obfuscated_phone"]))
+                else:
+                    print("No obfuscated phone found")
