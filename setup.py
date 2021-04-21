@@ -8,10 +8,10 @@ setup(
     packages=find_packages(),
     author="megadose",
     install_requires=["argparse","tabulate","httpx","tqdm","unicodecsv"],
-    description="Toutatis is a tool that allows you to extract information from instagrams accounts such as e-mails, phone numbers and more",
-    long_description="",
+    description="It is a tool written to retrieve private information such as Phone Number, Mail Address, ID on Instagram accounts via API.",
+    long_description="It is a tool written to retrieve private information such as Phone Number, Mail Address, ID on Instagram accounts via API.",
     include_package_data=True,
-    url='http://github.com/megadose/toutatis',
+    url='http://github.com/eyupergin/toutatis',
     entry_points = {'console_scripts': ['toutatis = toutatis.core:main']},
     classifiers=[
         "Programming Language :: Python",
