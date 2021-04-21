@@ -1,6 +1,14 @@
+import sys
+import colorama
 import argparse,json
-import httpx,sys,hmac,hashlib,urllib
+import httpx,hmac,hashlib,urllib
+import requests
+import os
 from httpx import get
+from colorama import Fore, Back, Style, init
+
+colorama.init(autoreset=True)	
+
 
 def getUserId(username,sessionsId):
     cookies = {'sessionid': sessionsId}
@@ -68,34 +76,32 @@ def main():
     args = parser.parse_args()
     sessionsId=args.sessionid
 
+
     infos = getInfo(args.username,sessionsId)
     if infos["user"]==None:
         print(infos["error"])
     else:
         infos=infos["user"]
-        print("Informations about : "+infos["username"])
-        print("Full Name : "+infos["full_name"]+" | userID : "+infos["userID"])
-        print("Verified : "+str(infos['is_verified'])+" | Is buisness Acount : "+str(infos["is_business"]))
-        print("Is private Account : "+str(infos["is_private"]))
-        print("Follower : "+str(infos["follower_count"]) + " Following : "+str(infos["following_count"]))
-        print("Number of posts : "+str(infos["media_count"]))
+
+        print("Informations about     : "+infos["username"])
+        print("Full Name              : "+infos["full_name"]+" | userID : "+infos["userID"])
+        print("Verified               : "+str(infos['is_verified'])+" | Is buisness Account : "+str(infos["is_business"]))
+        print("Is private Account     : "+str(infos["is_private"]))
+        print("Follower               : "+str(infos["follower_count"]) + " Following : "+str(infos["following_count"]))
+        print("Number of posts        : "+str(infos["media_count"]))
         print("Number of tag in posts : "+str(infos["following_tag_count"]))
-        print("External url : "+infos["external_url"])
-        print("IGTV posts : "+str(infos["total_igtv_videos"]))
-        print("Biography : "+infos["biography"])
-        print("Profile Picture : "+infos["hd_profile_pic_url_info"]["url"])
+        print("External url           : "+infos["external_url"])
+        print("IGTV posts             : "+str(infos["total_igtv_videos"]))
+        print("Biography              : "+infos["biography"])
         if "public_email" in infos.keys():
             if infos["public_email"]!='':
-                print("Public Email : "+infos["public_email"])
+                print("Public Email           : "+infos["public_email"])
             else:
-                print("No public email found")
+                print("No public email found  : ")
         if "public_phone_number"in infos.keys():
             if str(infos["public_phone_number"])!='':
-                print("Public Phone number : +"+str(infos["public_phone_country_code"])+" "+str(infos["public_phone_number"]))
-            else:
-                print("No public phone number found")
+                print("Public Phone number    : +"+str(infos["public_phone_country_code"])+" "+str(infos["public_phone_number"]))
 
-        print("*"*20)
         other_infos=advanced_lookup(args.username)
         if other_infos["error"]=="rate limit":
             print("Rate limit please wait a few minutes before you try again")
@@ -107,12 +113,14 @@ def main():
         else:
             if "obfuscated_email" in other_infos["user"].keys():
                 if other_infos["user"]["obfuscated_email"]!='':
-                    print("Obfuscated email : "+other_infos["user"]["obfuscated_email"])
+                    print("Obfuscated email       : "+other_infos["user"]["obfuscated_email"])
                 else:
                     print("No obfuscated email found")
 
             if "obfuscated_phone"in other_infos["user"].keys():
                 if str(other_infos["user"]["obfuscated_phone"])!='':
-                    print("Obfuscated phone : +"+str(other_infos["user"]["obfuscated_phone"]))
+                    print("Obfuscated phone       : "+str(other_infos["user"]["obfuscated_phone"]))
                 else:
                     print("No obfuscated phone found")
+        print("-"*24)
+        print("Profile Picture        : "+infos["hd_profile_pic_url_info"]["url"])
