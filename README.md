@@ -24,7 +24,7 @@ For BTC Donations : 1FHDM49QfZX6pJmhjLE5tB2K6CaTLMZpXZ
 ```
 pip3 install toutatis
  
-git clone https://github.com/EyupErgin/Toutatis.git
+git clone https://github.com/megadose/toutatis.git
 
 cd toutatis/
 
