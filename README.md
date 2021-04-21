@@ -28,7 +28,7 @@ It is a tool written to retrieve private information such as Phone Number, Mail 
 ```
 pip3 install toutatis
  
-git clone https://github.com/megadose/toutatis.git
+git clone https://github.com/EyupErgin/Toutatis.git
 
 cd toutatis/
 
