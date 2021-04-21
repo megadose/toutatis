@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/EyupErgin/EyupErgin/main/img/EyupErgin.png" alt="EyupErgin" width="250" />
-</p>
-
 <h1 align="center">Toutatis</h1>
 
 It is a tool written to retrieve private information such as Phone Number, Mail Address, ID on Instagram accounts via API.
