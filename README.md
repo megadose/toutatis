@@ -82,3 +82,4 @@ Profile Picture        : https://xxxprofilepicurl.com/
 <h2 align="left">Developers:</h2>
 
 [@EyupErgin](https://github.com/eyupergin)
+[@MegaDose](https://github.com/megadose)
