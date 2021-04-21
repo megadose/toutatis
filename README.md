@@ -62,24 +62,7 @@ Profile Picture        : https://xxxprofilepicurl.com/
 
 ```
 
-<h2 align="left">To-Do's:</h2>
-
-- [x] Username
-- [x] Full Name
-- [x] User ID
-- [x] Verified Check
-- [x] Follower and Following
-- [x] Number of Post
-- [x] Number of Tag in Post
-- [x] IGTV
-- [x] Biography
-- [x] Public Phone Number
-- [x] Public Email Adress
-- [x] Obfuscated Email
-- [x] Obfuscated Phone 
-- [x] Profile Picture
-
 <h2 align="left">Developers:</h2>
 
+[@Megadose](https://github.com/megadose)
 [@EyupErgin](https://github.com/eyupergin)
-[@MegaDose](https://github.com/megadose)
