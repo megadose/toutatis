@@ -4,10 +4,10 @@ from setuptools import setup, find_packages
 
 setup(
     name='toutatis',
-    version="1.24",
+    version="1.25",
     packages=find_packages(),
     author="megadose",
-    install_requires=["argparse","tabulate","httpx","tqdm","unicodecsv"],
+    install_requires=["argparse","tabulate","httpx","tqdm","unicodecsv","requests","colorama"],
     description="It is a tool written to retrieve private information such as Phone Number, Mail Address, ID on Instagram accounts via API.",
     long_description="It is a tool written to retrieve private information such as Phone Number, Mail Address, ID on Instagram accounts via API.",
     include_package_data=True,
