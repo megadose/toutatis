@@ -7,7 +7,7 @@ For BTC Donations : 1FHDM49QfZX6pJmhjLE5tB2K6CaTLMZpXZ
 ## 🛠️ Installation
 ### With PyPI
 
-```pip3 install toutatis```
+```pip install toutatis```
 
 ### With Github
 
