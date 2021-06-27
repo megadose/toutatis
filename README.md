@@ -43,6 +43,8 @@ Obfuscated phone       : +00 0xx xxx xx 00
 Profile Picture        : https://scontent-X-X.cdninstagram.com/
 ```
 
+## 📚 To retrieve the sessionID
+![](https://files.catbox.moe/1rfi6j.png)
 
 ## Thank you to :
 
