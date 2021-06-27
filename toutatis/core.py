@@ -7,7 +7,7 @@ import os
 from httpx import get
 from colorama import Fore, Back, Style, init
 
-colorama.init(autoreset=True)	
+colorama.init(autoreset=True)
 
 
 def getUserId(username,sessionsId):
@@ -87,7 +87,7 @@ def main():
         print("Full Name              : "+infos["full_name"]+" | userID : "+infos["userID"])
         print("Verified               : "+str(infos['is_verified'])+" | Is buisness Account : "+str(infos["is_business"]))
         print("Is private Account     : "+str(infos["is_private"]))
-        print("Follower               : "+str(infos["follower_count"]) + " Following : "+str(infos["following_count"]))
+        print("Follower               : "+str(infos["follower_count"]) + " | Following : "+str(infos["following_count"]))
         print("Number of posts        : "+str(infos["media_count"]))
         print("Number of tag in posts : "+str(infos["following_tag_count"]))
         print("External url           : "+infos["external_url"])
