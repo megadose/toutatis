@@ -1,8 +1,7 @@
-<h1 align="center">Toutatis</h1>
-It is a tool written to retrieve private information such as Phone Number, Mail Address, ID on Instagram accounts via API.
-</br>
+#Toutatis
+ Toutatis is a tool that allows you to extract information from instagrams accounts such as e-mails, phone numbers and more </br>
 For BTC Donations : 1FHDM49QfZX6pJmhjLE5tB2K6CaTLMZpXZ
-<h2 align="left">Features:</h2>
+## Features:
 
 - [x] Username
 - [x] Full Name
@@ -16,49 +15,53 @@ For BTC Donations : 1FHDM49QfZX6pJmhjLE5tB2K6CaTLMZpXZ
 - [x] Public Phone Number
 - [x] Public Email Adress
 - [x] Obfuscated Email
-- [x] Obfuscated Phone 
+- [x] Obfuscated Phone
 - [x] Profile Picture
 
-<h2 align="left">Installing:</h2>
+## 💡 Prerequisite
+[Python 3](https://www.python.org/downloads/release/python-370/)
 
-```
-pip3 install toutatis
- 
+## 🛠️ Installation
+### With PyPI
+
+```pip3 install toutatis```
+
+### With Github
+
+```bash
 git clone https://github.com/megadose/toutatis.git
-
 cd toutatis/
-
-sudo python3 setup.py install
-
+python3 setup.py install
 ```
 
-<h2 align="left">Usage:</h2>
+## 📚 Usage:
 
 ```
 toutatis -u username -s instagramsessionid
 ```
-<h2 align="left">Example:</h2>
+## 📈 Example
 
 ```
 Informations about     : xxxusernamexxx
-Full Name              : xxxusernamesxx| userID : 123456789
+Full Name              : xxxusernamesxx | userID : 123456789
 Verified               : False | Is buisness Account : False
 Is private Account     : False
-Follower               : xxx Following : xxx
-Number of posts        : xxx
+Follower               : xxx | Following : xxx
+Number of posts        : x
 Number of tag in posts : x
-External url           : 
+External url           : http://example.com
 IGTV posts             : x
 Biography              : example biography
-No public email found  : 
-Obfuscated email       : mailadress@examplemail.com
-Obfuscated phone       : +x xxx xxx xx xx
+Public Email           : public@example.com
+Public Phone           : +00 0 00 00 00 00
+Obfuscated email       : me********s@examplemail.com
+Obfuscated phone       : +00 0xx xxx xx 00
 ------------------------
-Profile Picture        : https://xxxprofilepicurl.com/
-
+Profile Picture        : https://scontent-X-X.cdninstagram.com/
 ```
 
-<h2 align="left">Developers:</h2>
 
-[@Megadose](https://github.com/megadose)
-[@EyupErgin](https://github.com/eyupergin)
+## Thank you to :
+
+- [EyupErgin](https://github.com/eyupergin)
+- [yazeed44](https://github.com/yazeed44)
