@@ -7,6 +7,13 @@ import os
 from httpx import get
 from colorama import Fore, Back, Style, init
 
+import phonenumbers
+from phonenumbers.phonenumberutil import (
+    region_code_for_country_code,
+    region_code_for_number,
+)
+import pycountry
+
 colorama.init(autoreset=True)
 
 
@@ -100,7 +107,15 @@ def main():
                 print("No public email found  : ")
         if "public_phone_number"in infos.keys():
             if str(infos["public_phone_number"])!='':
-                print("Public Phone number    : +"+str(infos["public_phone_country_code"])+" "+str(infos["public_phone_number"]))
+                phonenr = "+"+str(infos["public_phone_country_code"])+" "+str(infos["public_phone_number"])
+                try:
+                    pn = phonenumbers.parse(phonenr)
+                    countrycode = region_code_for_country_code(pn.country_code)
+                    country = pycountry.countries.get(alpha_2=countrycode)
+                    phonenr = phonenr + " ({}) ".format(country.name)
+                except:
+                    pass
+                print("Public Phone number    : " + phonenr)
 
         other_infos=advanced_lookup(args.username)
         if other_infos["error"]=="rate limit":

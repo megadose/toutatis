@@ -7,7 +7,7 @@ setup(
     version="1.25",
     packages=find_packages(),
     author="megadose",
-    install_requires=["argparse","tabulate","httpx","tqdm","unicodecsv","requests","colorama"],
+    install_requires=["argparse","tabulate","httpx","tqdm","unicodecsv","requests","colorama", "phonenumbers", "pycountry"],
     description="It is a tool written to retrieve private information such as Phone Number, Mail Address, ID on Instagram accounts via API.",
     long_description="It is a tool written to retrieve private information such as Phone Number, Mail Address, ID on Instagram accounts via API.",
     include_package_data=True,
