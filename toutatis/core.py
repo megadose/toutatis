@@ -14,7 +14,7 @@ def getUserId(username,sessionsId):
     cookies = {'sessionid': sessionsId}
     headers = {'User-Agent': 'Instagram 64.0.0.14.96'}
     api = requests.get(
-        f'https://www.instagram.com/{username}/?__a=1',
+        f'https://www.instagram.com/{username}/?__a=1&__d=dis',
         headers=headers,
         cookies=cookies
     )
