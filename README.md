@@ -43,11 +43,6 @@ Obfuscated phone       : +00 0xx xxx xx 00
 Profile Picture        : https://scontent-X-X.cdninstagram.com/
 ```
 
-## ❌ Error Fix
-You may get this error: ```user not found or rate limit``` <br>
-To fix, simply run --> ```pip uninstall toutatis``` and then --> ```pip install toutatis==1.3``` <br>
-Everything should work correctly after this.
-
 ## 📚 To retrieve the sessionID
 ![](https://files.catbox.moe/1rfi6j.png)
 
