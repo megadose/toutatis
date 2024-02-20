@@ -4,10 +4,7 @@ from urllib.parse import quote_plus
 from json import dumps, decoder
 
 import phonenumbers
-from phonenumbers.phonenumberutil import (
-    region_code_for_country_code,
-    region_code_for_number,
-)
+
 import pycountry
 
 def getUserId(username,sessionsId):
@@ -32,15 +29,17 @@ def getInfo(username,sessionId):
     userId = getUserId(username, sessionId)
     if userId["error"]:
         return userId
-
+    print("test")
     response = requests.get(
         f'https://i.instagram.com/api/v1/users/{userId["id"]}/info/',
         headers={'User-Agent': 'Instagram 64.0.0.14.96'},
         cookies={'sessionid': sessionId}
     ).json()["user"]
-    
+    print("test2")
+    print(response)
     infoUser = response
     infoUser["userID"] = userId["id"]
+    print(infoUser)
     
     return {"user":infoUser, "error":None}
 
@@ -82,12 +81,9 @@ def main():
     sessionsId=args.sessionid
 
     infos = getInfo(args.username, sessionsId)
-    if not infos["user"]:
-        exit(infos["error"])
 
     infos=infos["user"]
 
-    print("Informations about     : "+infos["username"])
     print("userID                 : "+infos["userID"])
     print("Full Name              : "+infos["full_name"])
     print("Verified               : "+str(infos['is_verified'])+" | Is buisness Account : "+str(infos["is_business"]))
