@@ -4,10 +4,13 @@ from urllib.parse import quote_plus
 from json import dumps, decoder
 
 import phonenumbers
-
+from phonenumbers.phonenumberutil import (
+    region_code_for_country_code,
+    region_code_for_number,
+)
 import pycountry
 
-def getUserId(username,sessionsId):
+def getUserId(username,sessionsId, iduser):
     cookies = {'sessionid': sessionsId}
     headers = {'User-Agent': 'Instagram 64.0.0.14.96'}
     api = requests.get(
@@ -19,27 +22,22 @@ def getUserId(username,sessionsId):
         if api.status_code == 404:
             return {"id": None, "error": "User not found"}
         
-        id = api.json()["logging_page_id"].strip("profilePage_")
-        return {"id":id, "error": None}
+        return {"id":iduser, "error": None}
 
     except decoder.JSONDecodeError:
         return {"id":None, "error":"Rate limit"}
 
-def getInfo(username,sessionId):
-    userId = getUserId(username, sessionId)
-    if userId["error"]:
-        return userId
-    print("test")
+def getInfo(sessionId, iduser):
+    userId = {"id":iduser, "error": None}
+
     response = requests.get(
         f'https://i.instagram.com/api/v1/users/{userId["id"]}/info/',
         headers={'User-Agent': 'Instagram 64.0.0.14.96'},
         cookies={'sessionid': sessionId}
     ).json()["user"]
-    print("test2")
-    print(response)
+    
     infoUser = response
     infoUser["userID"] = userId["id"]
-    print(infoUser)
     
     return {"user":infoUser, "error":None}
 
@@ -76,21 +74,21 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--sessionid',help="Instagram session ID",required=True)
     parser.add_argument('-u','--username',help="One username",required=True)
+    parser.add_argument('-i','--iduser',help="id",required=True)
     args = parser.parse_args()
 
     sessionsId=args.sessionid
+    iduser = args.iduser
 
-    infos = getInfo(args.username, sessionsId)
+    infos = getInfo(sessionsId, iduser)["user"]
 
-    infos=infos["user"]
-
-    print("userID                 : "+infos["userID"])
-    print("Full Name              : "+infos["full_name"])
+    
+    print("userID                 : "+str(infos["userID"]))
+    print("Full Name              : "+str(infos["full_name"]))
     print("Verified               : "+str(infos['is_verified'])+" | Is buisness Account : "+str(infos["is_business"]))
     print("Is private Account     : "+str(infos["is_private"]))
     print("Follower               : "+str(infos["follower_count"]) + " | Following : "+str(infos["following_count"]))
     print("Number of posts        : "+str(infos["media_count"]))
-    print("Number of tag in posts : "+str(infos["following_tag_count"]))
     if infos["external_url"]:
         print("External url           : "+infos["external_url"])
     print("IGTV posts             : "+str(infos["total_igtv_videos"]))
@@ -99,7 +97,6 @@ def main():
     if "public_email" in infos.keys():
         if infos["public_email"]:
             print("Public Email           : "+infos["public_email"])
-
     if "public_phone_number" in infos.keys():
         if str(infos["public_phone_number"]):
             phonenr = "+"+str(infos["public_phone_country_code"])+" "+str(infos["public_phone_number"])
