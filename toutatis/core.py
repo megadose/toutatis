@@ -15,6 +15,7 @@ def getUserId(username,sessionsId):
     api = requests.get(
         f'https://i.instagram.com/api/v1/users/web_profile_info/?username={username}',
         headers=headers,
+        cookies={'sessionid': sessionsId}
     )
     try:
         if api.status_code == 404:
