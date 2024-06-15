@@ -11,18 +11,16 @@ from phonenumbers.phonenumberutil import (
 import pycountry
 
 def getUserId(username,sessionsId):
-    cookies = {'sessionid': sessionsId}
-    headers = {'User-Agent': 'Instagram 64.0.0.14.96'}
+    headers = {"User-Agent": "iphone_ua", "x-ig-app-id": "936619743392459"}
     api = requests.get(
-        f'https://www.instagram.com/{username}/?__a=1&__d=dis',
+        f'https://i.instagram.com/api/v1/users/web_profile_info/?username={username}',
         headers=headers,
-        cookies=cookies
     )
     try:
         if api.status_code == 404:
             return {"id": None, "error": "User not found"}
         
-        id = api.json()["logging_page_id"].strip("profilePage_")
+        id = api.json()["data"]['user']['id']
         return {"id":id, "error": None}
 
     except decoder.JSONDecodeError:
@@ -94,7 +92,7 @@ def main():
     print("Is private Account     : "+str(infos["is_private"]))
     print("Follower               : "+str(infos["follower_count"]) + " | Following : "+str(infos["following_count"]))
     print("Number of posts        : "+str(infos["media_count"]))
-    print("Number of tag in posts : "+str(infos["following_tag_count"]))
+    # print("Number of tag in posts : "+str(infos["following_tag_count"]))
     if infos["external_url"]:
         print("External url           : "+infos["external_url"])
     print("IGTV posts             : "+str(infos["total_igtv_videos"]))
@@ -141,3 +139,4 @@ def main():
                 print("No obfuscated phone found")
     print("-"*24)
     print("Profile Picture        : "+infos["hd_profile_pic_url_info"]["url"])
+    
