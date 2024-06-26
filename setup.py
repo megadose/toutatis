@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='toutatis',
-    version="1.3",
+    version="1.31",
     packages=find_packages(),
     author="megadose",
     install_requires=["argparse","requests","phonenumbers","pycountry"],
