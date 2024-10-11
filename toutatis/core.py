@@ -81,7 +81,7 @@ def main():
     sessionsId=args.sessionid
 
     infos = getInfo(args.username, sessionsId)
-    if not infos["user"]:
+    if not infos.get("user"):
         exit(infos["error"])
 
     infos=infos["user"]
