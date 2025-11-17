@@ -33,7 +33,7 @@ toutatis -u username -s instagramsessionid
 ### Find information from an Instagram ID
 
 ```
-toutatis -i instagramID -s instagramsessionid
+toutatis -i akku___647 -s ZGNvNDFoZG5va3N3
 ```
 
 ## 📈 Example
