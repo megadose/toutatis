@@ -7,6 +7,7 @@ import phonenumbers
 from phonenumbers.phonenumberutil import (
     region_code_for_country_code,
     region_code_for_number,
+    
 )
 import pycountry
 
@@ -122,7 +123,8 @@ def main():
     # print("Number of tag in posts : "+str(infos["following_tag_count"]))
     if infos["external_url"]:
         print("External url           : " + infos["external_url"])
-    print("IGTV posts             : " + str(infos["total_igtv_videos"]))
+    if "total_igtv_videos" in infos:
+        print("IGTV posts             : " + str(infos["total_igtv_videos"]))
     print("Biography              : " + (f"""\n{" " * 25}""").join(infos["biography"].split("\n")))
     print("Linked WhatsApp        : " + str(infos["is_whatsapp_linked"]))
     print("Memorial Account       : " + str(infos["is_memorialized"]))
