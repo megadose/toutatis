@@ -30,7 +30,8 @@ python3 setup.py install
 toutatis -u username -s instagramsessionid
 ```
 
-### Find information from an Instagram ID
+### Find information from an Instagram ID_dz_arati_lohar_itz__678
+
 
 ```
 toutatis -i instagramID -s instagramsessionid
