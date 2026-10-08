@@ -13,27 +13,38 @@ import pycountry
 
 def getUserId(username, sessionsId):
     headers = {"User-Agent": "iphone_ua", "x-ig-app-id": "936619743392459"}
-    api = requests.get(
-        f'https://i.instagram.com/api/v1/users/web_profile_info/?username={username}',
-        headers=headers,
-        cookies={'sessionid': sessionsId}
-    )
     try:
+        api = requests.get(
+            'https://i.instagram.com/api/v1/users/web_profile_info/',
+            params={'username': username},
+            headers=headers,
+            cookies={'sessionid': sessionsId},
+            timeout=30,
+        )
         if api.status_code == 404:
             return {"id": None, "error": "User not found"}
-
-        id = api.json()["data"]['user']['id']
-        return {"id": id, "error": None}
-
-    except decoder.JSONDecodeError:
-        return {"id": None, "error": "Rate limit"}
+        if api.status_code == 429:
+            return {"id": None, "error": "Rate limit; try again later"}
+        if api.status_code in (401, 403):
+            return {"id": None, "error": "Instagram rejected the session; use a valid session ID"}
+        api.raise_for_status()
+        payload = api.json()
+        data = payload.get("data") if isinstance(payload, dict) else None
+        user = data.get("user") if isinstance(data, dict) else None
+        if not isinstance(user, dict) or not user.get("id"):
+            return {"id": None, "error": "Instagram returned no user; check the username and session, or try again later"}
+        return {"id": user["id"], "error": None}
+    except ValueError:
+        return {"id": None, "error": "Instagram returned an invalid JSON response; try again later"}
+    except requests.exceptions.RequestException:
+        return {"id": None, "error": "Unable to fetch the profile from Instagram"}
 
 
 def getInfo(search, sessionId, searchType="username" or "id"):
     if searchType == "username":
         data = getUserId(search, sessionId)
         if data["error"]:
-            return data
+            return {"user": None, "error": data["error"]}
         userId = data["id"]
     else:
         try:
@@ -45,20 +56,24 @@ def getInfo(search, sessionId, searchType="username" or "id"):
         response = requests.get(
             f'https://i.instagram.com/api/v1/users/{userId}/info/',
             headers={'User-Agent': 'Instagram 64.0.0.14.96'},
-            cookies={'sessionid': sessionId}
+            cookies={'sessionid': sessionId},
+            timeout=30,
         )
         if response.status_code == 429:
             return {"user": None, "error": "Rate limit"}
 
         response.raise_for_status()
 
-        info_user = response.json().get("user")
-        if not info_user:
+        payload = response.json()
+        info_user = payload.get("user") if isinstance(payload, dict) else None
+        if not isinstance(info_user, dict) or not info_user:
             return {"user": None, "error": "Not found"}
 
         info_user["userID"] = userId
         return {"user": info_user, "error": None}
 
+    except ValueError:
+        return {"user": None, "error": "Instagram returned an invalid JSON response"}
     except requests.exceptions.RequestException:
         return {"user": None, "error": "Not found"}
 
