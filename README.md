@@ -22,6 +22,17 @@ cd toutatis/
 python3 setup.py install
 ```
 
+### With OTinstaller
+
+On Linux, [OTinstaller](https://github.com/OSINTVerseHQ/OTinstaller), a third-party tool manager, can install the PyPI release into its own virtualenv; it saves each run's output under `./results/`. It isn't maintained by the Toutatis authors, so please report problems with it [on the OTinstaller tracker](https://github.com/OSINTVerseHQ/OTinstaller/issues).
+
+```bash
+pipx install otinstaller
+otinstaller init
+otinstaller install toutatis
+otinstaller run toutatis -- -u username --sessionid instagramsessionid   # same as: toutatis -u username -s instagramsessionid
+```
+
 ## 📚 Usage:
 
 ### Find information from a username
